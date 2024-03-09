@@ -41,4 +41,19 @@ public class VendingMachine {
     public void setCoinList(List<Coin> coinList) {
         this.coinList = coinList;
     }
+
+    public boolean authenticateUser(String username, String password) {
+
+
+
+
+
+        return false;
+    }
+
+    public void displayRestrictedOptions() {
+    }
+
+    public void blockUser() {
+    }
 }
