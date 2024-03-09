@@ -93,7 +93,10 @@ public class Main {
                                     if(loginUser.loginUser()){
                                         displayInventory(vendingMachine);
                                         System.out.println("Ingrese codigo de item a actualizar:");
-                                        int codeNumber = sc.nextInt();
+                                        int codeNumber ;
+                                        codeNumber= sc.nextInt();
+                                        vendingState.updateInventory(vendingMachine,codeNumber);
+
                                       }else{
                                         intentos++;
                                         if(intentos>=3){

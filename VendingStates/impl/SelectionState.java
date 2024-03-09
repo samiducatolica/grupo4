@@ -76,7 +76,7 @@ public class SelectionState implements State {
     }
 
     @Override
-    public void updateInventory(VendingMachine machine, Item item, int codeNumber) throws Exception {
+    public void updateInventory(VendingMachine machine,  int codeNumber) throws Exception {
         throw new Exception("Inventory can not be updated in Selection state");
     }
 

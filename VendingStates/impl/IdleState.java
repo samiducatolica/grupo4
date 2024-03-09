@@ -56,7 +56,8 @@ public class IdleState implements State {
     }
 
     @Override
-    public void updateInventory(VendingMachine machine, Item item, int codeNumber) throws Exception {
+    public void updateInventory(VendingMachine machine,  int codeNumber) throws Exception {
+        Item item =machine.getInventory().getItem(codeNumber);
         machine.getInventory().addItem(item, codeNumber);
     }
 }
