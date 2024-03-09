@@ -77,7 +77,9 @@ public class SelectionState implements State {
 
     @Override
     public void updateInventory(VendingMachine machine,  int codeNumber) throws Exception {
-        throw new Exception("Inventory can not be updated in Selection state");
+        //throw new Exception("Inventory can not be updated in Selection state");
+        machine.getInventory().fillSoldOutItem(codeNumber);
+        System.out.println("Producto Actualizado");
     }
 
 }

@@ -50,7 +50,8 @@ public class InvetoryState implements State {
 
     @Override
     public void updateInventory(VendingMachine machine, int codeNumber) throws Exception {
-        machine.getInventory().fillSoldOutItem(codeNumber);
         machine.setVendingMachineState(new IdleState(machine));
+        machine.getInventory().fillSoldOutItem(codeNumber);
+
     }
 }

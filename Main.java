@@ -96,6 +96,7 @@ public class Main {
                                         int codeNumber ;
                                         codeNumber= sc.nextInt();
                                         vendingState.updateInventory(vendingMachine,codeNumber);
+                                        displayInventory(vendingMachine);
 
                                       }else{
                                         intentos++;
