@@ -1,5 +1,6 @@
 package LowLevelDesign.DesignVendingMachine;
 
+import LowLevelDesign.DesignVendingMachine.Autenticacion.LoginUser;
 import LowLevelDesign.DesignVendingMachine.VendingStates.State;
 
 import java.util.Scanner;
@@ -11,7 +12,7 @@ public class Main {
 
         VendingMachine vendingMachine = new VendingMachine();
         Scanner sc = new Scanner(System.in);
-        Boolean redo = true;
+        boolean redo = true;
         int opcion;
         try {
 
@@ -27,7 +28,8 @@ public class Main {
                 displayInventory(vendingMachine);
                 System.out.println("Seleccione acion de la maquina");
                 System.out.println("[1] insertar dinero." +
-                        "[2] seleccionar producto");
+                        "\n[2] seleccionar producto" +
+                        "\n[3] Inventario ");
                 System.out.println( "0 para salir");
 
                 opcion = sc.nextInt();
@@ -42,7 +44,7 @@ public class Main {
                         int opcionMoney;
                         do {
                             vendingState = vendingMachine.getVendingMachineState();
-                            System.out.println("[1] insertat NCKEL. \n[2] insertar QUARTER.  \n[0] Salir.");
+                            System.out.println("[1] insertat NCKEL. \n[2] insertar QUARTER. \n[0] Salir.");
                             opcionMoney = sc.nextInt();
                             switch (opcionMoney){
                                 case 1:
@@ -71,12 +73,54 @@ public class Main {
                         vendingState.chooseProduct(vendingMachine, producto);
                         System.out.println("Producto Despachando.1");
                         break;
+                    case 3:
+                        System.out.println("|");
+                        System.out.println("Click en inventario");
+                        System.out.println("|");
+                        System.out.println("Porfavor logearse");
+                        boolean redoAuten = true;
+                        int aut;
+                        do{
+                            System.out.println("[1] Usuario y contraseña" +
+                                    "\n[2] Pin" +
+                                    "\n[3] Redes Sociales" +
+                                    "\n[0] Salir");
+                            aut = sc.nextInt();
+                            switch (aut){
+                                case 1:
+                                    int intentos = 0;
+                                    LoginUser loginUser = new LoginUser();
+                                    if(loginUser.loginUser()){
+                                        displayInventory(vendingMachine);
+                                        System.out.println("Ingrese codigo de item a actualizar:");
+                                        int codeNumber ;
+                                        codeNumber= sc.nextInt();
+                                        vendingState.updateInventory(vendingMachine,codeNumber);
 
+                                      }else{
+                                        intentos++;
+                                        if(intentos>=3){
+                                            break;
+                                        }
+                                    }
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    break;
+                                case 0:
+                                    redoAuten = false;
+                                    break;
+                            };
+                        }while(redoAuten);
+
+
+                        break;
                     case 0:
                         redo = false;
                         break;
                 }
-                System.out.println("Redo "+redo.toString());
+
 
             }while(redo);
 

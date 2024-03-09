@@ -64,4 +64,12 @@ public class Inventory {
             }
         }
     }
+
+    public void fillSoldOutItem(int codeNumber){
+        for (ItemShelf itemShelf : inventory) {
+            if (itemShelf.code == codeNumber) {
+                itemShelf.setSoldOut(false);
+            }
+        }
+    }
 }

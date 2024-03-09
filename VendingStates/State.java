@@ -22,7 +22,7 @@ public interface State {
 
     public List<Coin> refundFullMoney(VendingMachine machine) throws Exception;
 
-    public void updateInventory(VendingMachine machine, Item item, int codeNumber) throws Exception;
+    public void updateInventory(VendingMachine machine,  int codeNumber) throws Exception;
 
 
 }
