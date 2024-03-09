@@ -2,12 +2,17 @@ package LowLevelDesign.DesignVendingMachine;
 
 import LowLevelDesign.DesignVendingMachine.VendingStates.State;
 
+import java.util.Scanner;
+
 
 public class Main {
 
     public static void main(String args[]){
 
         VendingMachine vendingMachine = new VendingMachine();
+        Scanner sc = new Scanner(System.in);
+        Boolean redo = true;
+        int opcion;
         try {
 
             System.out.println("|");
@@ -16,32 +21,68 @@ public class Main {
 
             fillUpInventory(vendingMachine);
             displayInventory(vendingMachine);
-
-            System.out.println("|");
-            System.out.println("clicking on InsertCoinButton");
-            System.out.println("|");
-
             State vendingState = vendingMachine.getVendingMachineState();
-            vendingState.clickOnInsertCoinButton(vendingMachine);
+            //vendingState.clickOnInsertCoinButton(vendingMachine);
+            do {
+                displayInventory(vendingMachine);
+                System.out.println("Seleccione acion de la maquina");
+                System.out.println("[1] insertar dinero." +
+                        "[2] seleccionar producto");
+                System.out.println( "0 para salir");
 
-            vendingState = vendingMachine.getVendingMachineState();
-            vendingState.insertCoin(vendingMachine, Coin.NICKEL);
-            vendingState.insertCoin(vendingMachine, Coin.QUARTER);
-           // vendingState.insertCoin(vendingMachine, Coin.NICKEL);
+                opcion = sc.nextInt();
 
-            System.out.println("|");
-            System.out.println("clicking on ProductSelectionButton");
-            System.out.println("|");
-            vendingState.clickOnStartProductSelectionButton(vendingMachine);
+                switch (opcion){
+                    case 1:
+                        System.out.println("|");
+                        System.out.println("Click en Insertando Dinero");
+                        System.out.println("|");
+                        vendingState.clickOnInsertCoinButton(vendingMachine);
+                        boolean redoMoney = true;
+                        int opcionMoney;
+                        do {
+                            vendingState = vendingMachine.getVendingMachineState();
+                            System.out.println("[1] insertat NCKEL. \n[2] insertar QUARTER.  \n[0] Salir.");
+                            opcionMoney = sc.nextInt();
+                            switch (opcionMoney){
+                                case 1:
+                                    vendingState.insertCoin(vendingMachine, Coin.NICKEL);
+                                    break;
+                                case 2:
+                                    vendingState.insertCoin(vendingMachine, Coin.QUARTER);
+                                    break;
+                                case 0:
+                                    redoMoney=false;
+                                    break;
+                            }
+                        }while (redoMoney);
+                        break;
 
-            vendingState = vendingMachine.getVendingMachineState();
-            vendingState.chooseProduct(vendingMachine, 102);
+                    case 2:
+                        System.out.println("|");
+                        System.out.println("Click en Seleccionando producto");
+                        System.out.println("|");
+                        vendingState.clickOnStartProductSelectionButton(vendingMachine);
+                        vendingState = vendingMachine.getVendingMachineState();
+                        displayInventory(vendingMachine);
+                        int producto;
+                        System.out.println("Digite el producto:");
+                        producto =sc.nextInt();
+                        vendingState.chooseProduct(vendingMachine, producto);
+                        System.out.println("Producto Despachando.1");
+                        break;
 
-            displayInventory(vendingMachine);
+                    case 0:
+                        redo = false;
+                        break;
+                }
+                System.out.println("Redo "+redo.toString());
+
+            }while(redo);
 
         }
         catch (Exception e){
-            displayInventory(vendingMachine);
+            //displayInventory(vendingMachine);
         }
 
 
